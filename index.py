@@ -27,6 +27,7 @@ def post_data():
     print(sym)
 
     df = yf.download(tickers=sym, start=data['start'], end=data['end'], interval=data['interval'])
+    df.columns=['close','high','low','open','volume']
     datetime_series = df.index
 
     # Convert the datetime series to a datetime format
@@ -38,7 +39,7 @@ def post_data():
     # Process the data (in this example, we'll just echo it back)
     if len(df):
         df['time'] = df.index.astype(str)
-        df.rename(columns={"Open": "open", "High": "high", "Low": "low", "Close": "close"}, inplace=True)
+        # df.rename(columns={"Open": "open", "High": "high", "Low": "low", "Close": "close"}, inplace=True)
         if df.time[0] == df.time[1]:
             df.time = range(len(df))
 
